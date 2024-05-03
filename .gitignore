@@ -1,0 +1,4 @@
+/dropbox/*
+!/dropbox/Cargo.toml
+!/dropbox/src/
+/sqlite-dropbox-test/*
