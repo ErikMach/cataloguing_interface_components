@@ -3,8 +3,8 @@ Test components for Carl's Cataloguing Interface
 
 ## Components
 Fontend
-  Layout of catalogue
+  + Layout of catalogue
 Backend
-  Rust API to implement Dropbox API
-  SQLite Database stored on Dropbox with a Mutex file
+  + Rust API to implement Dropbox API
+  + SQLite Database stored on Dropbox with a Mutex file
 
