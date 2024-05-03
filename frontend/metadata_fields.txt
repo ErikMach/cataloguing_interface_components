@@ -1,0 +1,46 @@
+General headings:
+    + Details
+	- UERD Number
+	- Variation Number
+	- Filename
+    + Composer
+	- Name
+	- Dates
+    + Librettist
+	- Name
+	- Dates
+    + Work details
+	- Major Work name
+	- Song name
+	- Character name(s)
+	- Voice type(s)
+	- Original Key (& Key, if transposed)
+	- Text Incipit(s)
+	- Additional Instruments
+    + Progress
+	- Status
+	- Original URL source
+	- Sibelius/PDF locations
+	- Notes
+    + Tags (descriptors)
+    + Importance Ranking (including progress status)
+
+To Generate:
+    + Filename
+    + Product (song) title
+    + Into German
+	- Key
+	- Voice type
+	- Descriptors
+	- Additional Instruments
+	
+
+Carl's Fields:
+song rank	Rafferty extended file name	filing status	Source	URL for Source	XML status	name of major work	Name of individual Song	Op.	Song No	Comp sname	Comp first	first last	comp dates	character	voice type	descriptors	orig Key	Librettist	Librettist Dates	Notes (on progress)
+
+
+UE's Fields: 
+UE Number*	Filename*	Filename-Sample pages	Cover	Price*	Comp sname	Comp firname	knk contact number*	First/sur	knk project number/Work-ID*	Work Maintitle*	Work Title English	song (product) Maintitle*	song title English	Character English	Character German	Voice type English	Voice type German	useful key words/descriptors	Comp work No	Work Sub No	Key English	Key German	Type	librettist	Librettist dates	Comp dates	Text incipit	Additional Instruments English	Additional Instruments German	UE (i)	UE (ii)	UE (iii)	status rafferty	Manuscript source	HTTPs		Work description English	Work description German
+
+UE Number*	Filename*	Filename-Sample pages	Cover	Price*	Comp sname	Comp firname		First/sur		Work Maintitle*		song (product) Maintitle*			Character	Voice type English	Voice type German	useful key words/descriptors	Comp work No	Work Sub No	Key English					librettist		Librettist dates	Comp dates	Text incipit												Additional Instruments		Work description English					
+sample 1							Dez 95	VERDI		Giuseppe		Giuseppe VERDI		La traviata		È strano - Ah fors'è lui - Sempre libera	Violetta	soprano			sopran			Italian | romantic | opera 					A flat Major. Original key . High voice		Francesco Maria PIAVE	1810 - 1876		1813 - 1901	È strano! è strano! in core | Follie!... Follie!... Delirio Vano E Questo  |Sempre libera degg´io										Violetta's confused emotions are vented in this showpiece for soprano, This edition features the standard and most virtuosic cadenzas.	In diesem Prunkstück für Sopran kommen Violettas verwirrten Gefühlen Luft. Diese Ausgabe enthält die Standardkadenzen und die virtuosesten.						
