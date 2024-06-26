@@ -1,0 +1,501 @@
+@import "variables.css";
+
+@media (width >= 1800px) and (height >= 1000px) { /* for a 21" 1920×1080 display, with a little leeway */
+  body {
+    font-size: 1.8em !important;
+  }
+
+  .topBar {
+//    min-height: 80px;
+    min-height: 10% !important;
+  }
+
+  .data-progressBox {
+    height: 75% !important;
+  }
+
+  .variations {
+    height: 25%;
+    min-height: 120px;
+  }
+}
+
+* {
+  user-select: none;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 3px;
+  background: inherit;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background-color: var(--scrollbar);
+}
+
+@font-face {
+  font-family: "Sedan";
+  src: url("./fonts/SedanSC/SedanSC-Regular.ttf") format("opentype");
+  font-weight: normal;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("./fonts/Montserrat/Montserrat-variable_wght.ttf") format(truetype) tech(variations);
+  font-weight: 100 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("./fonts/Montserrat/Montserrat-italic-variable_wght.ttf") format(truetype) tech(variations);
+  font-weight: 100 900;
+  font-style: italic;
+}
+
+html, body {
+  font-family: Montserrat;
+  font-style: normal;
+
+  margin: 0;
+  background-color: var(--body-bg);
+  color: var(--text-color);
+}
+
+body {
+  /* This application is only for Desktop, so fixed 100vh is okay */
+  height: 100vh;
+  font-size: 1.2em;
+
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+/* Menu variables
+
+*/
+
+.pageMenu {
+  position: relative;
+  width: var(--page-menu-width);
+  min-width: var(--page-menu-width);
+  height: 80%;
+  border-right: var(--page-menu-border-width) solid var(--page-menu-border-color);
+  z-index: 0;
+  background-color: var(--page-menu-bg-color);
+}
+/* Would be cool to have an animation where the border shrinks away from unselected and grows toward selected...
+.pageMenu > * {
+  transition: 0.2s;
+}
+*/
+.pageMenu > div:not([id="selectedStyle"]):not([class="selected"]) {
+  /* Put unselected divs on top (of #selectedStyle stuff) */
+  z-index: 5;
+}
+.pageMenu > div:not([id="selectedStyle"]) {
+  position: relative;
+  width: var(--page-menu-button-width);
+  height: var(--page-menu-button-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: var(--page-menu-button-margin) auto;
+  border: var(--page-menu-border-width) solid var(--page-menu-border-color);
+  border-radius: var(--page-menu-border-radius);
+  background-color: var(--page-menu-button-bg-color);
+  cursor: pointer;
+  transition: border-radius 0.2s;
+}
+.pageMenu > div.selected {
+  background-color: var(--page-menu-border-color);// var(--page-menu-bg-color);
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
+  /* makes cute "coming-forward" effect */
+//  border-right: none;
+}
+.pageMenu > div#selectedStyle {
+  position: absolute;
+  top: calc(-1 * var(--page-menu-border-width));
+  left: var(--page-menu-styling-left);
+  width: var(--page-menu-border-radius);
+  height: calc(var(--page-menu-button-full-height) + 2 * (var(--page-menu-border-radius) + var(--page-menu-border-width))); /* 142 */
+  z-index: 3;
+}
+.pageMenu > div#selectedStyle > div.bg {
+  position: relative;
+  background-color: var(--page-menu-border-color); //var(--page-menu-bg-color);
+  width: calc(100% + var(--page-menu-border-width));
+  height: 100%;
+  top: 0px;
+  border-top-left-radius: var(--page-menu-border-radius);
+  border-bottom-left-radius: var(--page-menu-border-radius);
+  z-index: 2;
+}
+.pageMenu > div#selectedStyle > div:not([class="bg"]) {
+  position: absolute;
+  width: calc(2 * var(--page-menu-border-radius));
+  height: calc(var(--page-menu-border-width) + var(--page-menu-border-radius));
+  left: calc(-1 * var(--page-menu-border-radius));
+  z-index: 3;
+  background-color: var(--page-menu-bg-color);
+}
+.pageMenu > div#selectedStyle > div.a1 {
+  top: 0;
+  border-bottom: var(--page-menu-border-width) solid var(--page-menu-border-color);
+  border-right: var(--page-menu-border-width) solid var(--page-menu-border-color);
+  border-bottom-right-radius: var(--page-menu-border-radius);
+}
+.pageMenu > div#selectedStyle > div.a2 {
+  bottom: 0;
+  border-top: var(--page-menu-border-width) solid var(--page-menu-border-color);
+  border-right: var(--page-menu-border-width) solid var(--page-menu-border-color);
+  border-top-right-radius: var(--page-menu-border-radius);
+}
+
+.pageMenu > div:not([id="selectedStyle"]) > div {
+  width: var(--page-menu-icon-size);
+  height: var(--page-menu-icon-size);
+  background-size: contain;
+}
+
+.pageMenu > div > img {
+  width: 50px;
+  height: 50px;
+}
+.pageMenu > div:not(.selected) > img {
+  filter: brightness(0) saturate(100%) invert(75%) sepia(0%) saturate(13%) hue-rotate(55deg) brightness(91%) contrast(91%);
+}
+.pageMenu > div.selected > img {
+filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(159deg) brightness(105%) contrast(105%);
+ // filter: brightness(0) saturate(100%) invert(24%) sepia(53%) saturate(3436%) hue-rotate(15deg) brightness(95%) contrast(88%);
+}
+
+
+div.page1 {
+  height: calc(100% - 20px);
+  width: calc(100% - 20px - var(--page-menu-width) - var(--page-menu-border-width)); /* minus border and minus pageMenu (sidebar on left) */
+  display: flex;
+  flex-flow: column nowrap;
+  border: 10px solid var(--page-border-color);
+}
+
+.full-width {
+  width: 100%;
+}
+
+.half-width {
+  width: 50%;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.div {
+  border: 1px solid #aaa;
+  margin: -1px;
+}
+
+.topBar {
+  min-height: 80px;
+  
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+
+  background-color: var(--topbar-bg);
+}
+
+.topBar > div {
+  font-family: Sedan;
+  font-style: normal;
+  font-size: 2.4em;
+  font-weight: normal;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.filename {
+  margin-left: 0.5em;
+}
+
+.menu {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+}
+
+.menu:hover > img {
+  transform: rotate(30deg);
+}
+.menu > img {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.2s;
+}
+
+
+div.workDetails {
+  margin-top: 1em;
+}
+div.workDetails input {
+  width: calc(100% - 2px - 1.2em);
+  padding: 0 0 0 2px;
+  margin: 0 0 0 1.2em;
+  border: none;
+  background-color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+}
+div.workDetails input::placeholder {
+  color: inherit;
+  opacity: 0.5;
+}
+
+.data-progressBox {
+  height: 60%;
+  width: calc(100% - 4px);
+  display: flex;
+  flex-flow: row nowrap;
+  background-color: var(--dataprog-bg);
+  border: 2px solid var(--dataprog-border-color);
+}
+
+.progressBox {
+  position: relative;
+  width: 65%;
+  height: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.progressBox .progressSteps {
+  height: 100%;
+  width: 65%;
+  border-right: var(--dataprog-border-width) solid var(--dataprog-border-color-transparent);
+}
+.progressBox .title {
+  transition: background 0.2s;
+  padding: 15px;
+  border-bottom: var(--dataprog-border-width) solid  var(--dataprog-border-color-transparent);
+//  box-shadow: inset 0 0 5px 1px black;
+}
+/* Text in `.title` */
+.progressBox .listBox:after {
+  content: counter(completedItems) " / " counter(progressItems);
+  position: absolute;
+  top: 15px;
+  left: calc(8ch + 15px);
+}
+.progressBox .listBox {
+  counter-reset: progressItems completedItems;
+  height: calc(100% - 30px - 1em);
+//  box-shadow: inset 0 0 5px 1px #bba;
+//  border-bottom: 3px solid #bba;
+  overflow-y: scroll;
+}
+.progressBox .progressStep {
+  counter-increment: progressItems;
+  position: relative;
+  padding: 0.5em 1em;
+  margin: 0;
+}
+.progressBox .progressStep * {
+  cursor: pointer;
+}
+.progressBox div.progressStep:has(> input:checked) {
+  counter-increment: progressItems completedItems;
+  opacity: 0.5;
+}
+.progressBox div.progressStep:has(> input:checked) > label {
+ text-decoration: line-through;
+}
+.progressBox div.progressStep > input {
+  margin: 0;
+  margin-right: 2em;
+  --input-checkbox-size: 1.2em;
+  width: var(--input-checkbox-size);
+  height: var(--input-checkbox-size);
+//  pointer-events: none;
+}
+.progressBox div.progressStep > span {
+
+}
+
+.progressBox .notes {
+  position: relative;
+  display: inline-block;
+  width: calc(35% - 1em);
+  height: calc(70%);
+}
+.progressBox .notes > div.notesTitle {
+  width: calc(100% - 30px);
+  height: calc(1em + 10px);
+  padding: 15px;
+  text-decoration: underline;
+}
+.progressBox .notes > div.notesWriting {
+  width: calc(100% - 30px);
+  height: calc(100% - 1em - 40px);
+  overflow-y: auto;
+  padding: 0 15px;
+}
+.progressBox .notes > div.notesWriting:empty:before {
+  content: "Write your notes here...";
+  opacity: 0.5;
+}
+.progressBox .notes div.notesWriting:focus-visible {
+    outline: none;
+}
+
+.progressBox .actions {
+  display: inline-flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 35%;
+  height: 30%;
+}
+
+.progressBox .actions > button {
+  position: relative;
+  width: 40%;
+  height: 30%;
+  font-family: inherit;
+  font-weight: 650;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.progressBox .actions > button:before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: calc(100% + 5px);
+  height: calc(100% + 5px);
+  background-color: transparent;
+  opacity: 0.5;
+}
+.progressBox .actions > button:hover:before {
+  top: -2px;
+}
+.progressBox .actions > button:hover {
+  box-shadow: inset 0 0 3px 1px #a0a0bb;
+  top: -1px;
+}
+.progressBox .actions > button:active:before {
+ // top: -3px;
+}
+.progressBox .actions > button:active {
+ // top: 0px;
+}
+
+
+
+button {
+  background-color: inherit;
+}
+
+.metadata {
+  border-right: var(--dataprog-border-width) solid var(--dataprog-border-color);
+  width: 35%;
+
+  display: flex;
+  flex-flow: row wrap;
+  overflow-y: auto; 
+}
+
+.artist {
+  padding: 2ch;
+  width: calc(50% - 4ch);
+}
+/*
+label[for="tags"] {
+  text-decoration: underline;
+}
+*/
+
+.tagBox {
+  width: 100%;
+  padding-left: 2ch;
+}
+.tagBoxTitle {
+display: none;
+  text-decoration: underline;
+  margin-bottom: 0.5em;
+}
+.tags {
+  position: relative;
+  width: 100%;
+  overflow-x: visible;
+  overflow-y: visible;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.tags > span {
+  border-radius: 1em;
+  border: 0.5px solid #00000044;
+  padding: 0 0.5ch 1px 0.5ch;
+  background-color: transparent;
+  color: inherit;
+  margin-right: 0.25em;
+}
+
+.ulBox {
+  overflow-x: scroll;
+}
+
+
+/* For a scrollbar at the top of .variations, use `transform: rotateX(180deg);` on .variations and .var */
+.variations {
+  height: 25%;
+  min-height: 120px;
+  display: flex;
+  flex-flow: row nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  background-color: var(--topbar-bg);
+}
+
+.var {
+  flex-shrink: 0;
+  width: 25vh;
+  height: calc( 100% - 4px );
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  border: 1px solid #888;
+  margin: 1px;
+
+  cursor: pointer;
+}
+
+.var > span {
+  background-color: transparent;
+  text-align: center;
+}
+
+.var.selected {
+  box-shadow: inset 0px 0px 8px 2.5px var(--dataprog-border-color-transparent);
+  background-color: var(--dataprog-bg);
+}
+
+
+div.page2 {
+  display: flex;
+  flex-flow: row wrap;
+}
