@@ -21,7 +21,11 @@
 
     <!-- Preload Stylesheets -->
     <link rel="preload" as="style" href="./css/index.css" />
+    <link rel="preload" as="style" href="./css/page_edit.css" />
     <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/navigation.css" />
+    <link rel="stylesheet" href="./css/page_catalogue.css" />
+    <link rel="stylesheet" href="./css/page_edit.css" />
 <!--
     <script type="module" src="./js/index.js"></script>
 -->
@@ -193,6 +197,24 @@
 
 -->
 
+    <div class="page" id="cataloguePage">
+	<!-- search bar also has filters -->
+	<div class="searchbar" contenteditable="true" spellcheck="false"></div>
+	<table class="catalogueTable">
+	    <tr>
+		<th>UEDR</th>
+		<th>Variation</th>
+		<th>Filename</th>
+		<th>Composer</th>
+		<th>Voice</th>
+		<th>Progress</th>
+		<th>Importance</th>
+	    </tr>
+	</table>
+    </div>
+
+    <script src="./js/page_catalogue/functionality.js"></script>
+    <script src="./js/page_edit/components.js"></script>
     <script src="./js/index.js"></script>
   </body>
 </html>
