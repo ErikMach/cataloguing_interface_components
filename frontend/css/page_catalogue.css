@@ -1,0 +1,27 @@
+div.page {
+  width: 100%;
+  height: 100%;
+}
+
+
+.searchbar {
+  cursor: text;
+  font-size: 2em;
+  padding: 0.5em;
+}
+.searchbar:empty:before {
+  content: "Search Catalogue";
+  opacity: 0.5;
+}
+.searchbar:focus-visible:empty:before {
+  content: "";
+}
+.searchbar:focus-visible {
+    outline: none;
+}
+
+
+table.catalogueTable {
+  width: 95%;
+  margin: auto;
+}

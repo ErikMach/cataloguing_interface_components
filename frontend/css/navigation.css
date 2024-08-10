@@ -1,0 +1,95 @@
+.pageMenu {
+  position: relative;
+  width: var(--page-menu-width);
+  min-width: var(--page-menu-width);
+  height: 80%;
+  border-right: var(--page-menu-border-width) solid var(--page-menu-border-color);
+  z-index: 0;
+  background-color: var(--page-menu-bg-color);
+}
+/* Would be cool to have an animation where the border shrinks away from unselected and grows toward selected...
+.pageMenu > * {
+  transition: 0.2s;
+}
+*/
+.pageMenu > div:not([id="selectedStyle"]):not([class="selected"]) {
+  /* Put unselected divs on top (of #selectedStyle stuff) */
+  z-index: 5;
+}
+.pageMenu > div:not([id="selectedStyle"]) {
+  position: relative;
+  width: var(--page-menu-button-width);
+  height: var(--page-menu-button-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: var(--page-menu-button-margin) auto;
+  border: var(--page-menu-border-width) solid var(--page-menu-border-color);
+  border-radius: var(--page-menu-border-radius);
+  background-color: var(--page-menu-button-bg-color);
+  cursor: pointer;
+  transition: border-radius 0.2s;
+}
+.pageMenu > div.selected {
+  background-color: var(--page-menu-border-color);// var(--page-menu-bg-color);
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
+  /* makes cute "coming-forward" effect */
+//  border-right: none;
+}
+.pageMenu > div#selectedStyle {
+  position: absolute;
+  top: calc(-1 * var(--page-menu-border-width));
+  left: var(--page-menu-styling-left);
+  width: var(--page-menu-border-radius);
+  height: calc(var(--page-menu-button-full-height) + 2 * (var(--page-menu-border-radius) + var(--page-menu-border-width))); /* 142 */
+  z-index: 3;
+}
+.pageMenu > div#selectedStyle > div.bg {
+  position: relative;
+  background-color: var(--page-menu-border-color); //var(--page-menu-bg-color);
+  width: calc(100% + var(--page-menu-border-width));
+  height: 100%;
+  top: 0px;
+  border-top-left-radius: var(--page-menu-border-radius);
+  border-bottom-left-radius: var(--page-menu-border-radius);
+  z-index: 2;
+}
+.pageMenu > div#selectedStyle > div:not([class="bg"]) {
+  position: absolute;
+  width: calc(2 * var(--page-menu-border-radius));
+  height: calc(var(--page-menu-border-width) + var(--page-menu-border-radius));
+  left: calc(-1 * var(--page-menu-border-radius));
+  z-index: 3;
+  background-color: var(--page-menu-bg-color);
+}
+.pageMenu > div#selectedStyle > div.a1 {
+  top: 0;
+  border-bottom: var(--page-menu-border-width) solid var(--page-menu-border-color);
+  border-right: var(--page-menu-border-width) solid var(--page-menu-border-color);
+  border-bottom-right-radius: var(--page-menu-border-radius);
+}
+.pageMenu > div#selectedStyle > div.a2 {
+  bottom: 0;
+  border-top: var(--page-menu-border-width) solid var(--page-menu-border-color);
+  border-right: var(--page-menu-border-width) solid var(--page-menu-border-color);
+  border-top-right-radius: var(--page-menu-border-radius);
+}
+
+.pageMenu > div:not([id="selectedStyle"]) > div {
+  width: var(--page-menu-icon-size);
+  height: var(--page-menu-icon-size);
+  background-size: contain;
+}
+
+.pageMenu > div > img {
+  width: 50px;
+  height: 50px;
+}
+.pageMenu > div:not(.selected) > img {
+  filter: brightness(0) saturate(100%) invert(75%) sepia(0%) saturate(13%) hue-rotate(55deg) brightness(91%) contrast(91%);
+}
+.pageMenu > div.selected > img {
+filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(159deg) brightness(105%) contrast(105%);
+ // filter: brightness(0) saturate(100%) invert(24%) sepia(53%) saturate(3436%) hue-rotate(15deg) brightness(95%) contrast(88%);
+}
