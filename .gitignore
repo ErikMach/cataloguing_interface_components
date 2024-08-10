@@ -5,6 +5,8 @@
 
 /sqlite-dropbox-test/*
 
+/frontend/metadata_fields.txt
 /frontend/css/fonts/
 /frontent/res/
+
 /tauri-test/
