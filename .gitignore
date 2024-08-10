@@ -1,4 +1,10 @@
 /dropbox/*
 !/dropbox/Cargo.toml
 !/dropbox/src/
+/dropbox/src/flow.txt
+
 /sqlite-dropbox-test/*
+
+/frontend/css/fonts/
+/frontent/res/
+/tauri-test/
