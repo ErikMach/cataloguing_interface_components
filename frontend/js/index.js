@@ -8,11 +8,6 @@ document.body.parentElement.classList.add([
     "CarolsRed"
 ][6]);
 
-/*
- MAYBE MAKE THINGS BIGGER AND PUT THEM ON SCROLL. BUT THEY LIKELY WON'T SCROLL ON CARL'S SCREEN UNLESS THEY'RE FULLY FILLED OUT
-
-*/
-
 /*** KEYWORD TAGS ***/
 /*
 class TagBox extends HTMLDivElement {
@@ -43,64 +38,6 @@ progressSteps.forEach(step => {
 });
 */
 
-/*** PROGRESS THINGOS ***/
-
-class ProgressStep extends HTMLDivElement {
-  constructor(info, index) {
-    super();
-    this.classList.add("progressStep");
-
-    this.input = document.createElement("input");
-    this.input.id = info.split(/\s/g)[0] + index;
-    this.input.type = "checkbox";
-/*
-    this.input.addEventListener("change", () => {
-      checkedBoxes.checks += this.input.checked ? 1 : -1;
-    });
-*/
-
-    this.info = document.createElement("label");
-    this.info.setAttribute("for", info.split(/\s/g)[0] + index);
-    this.info.textContent = info;
-
-    this.appendChild(this.input);
-    this.appendChild(this.info);
-  }
-}
-customElements.define("progress-step", ProgressStep, {extends: "div"});
-
-let progressListBox = document.getElementsByClassName("listBox")[0];
-
-let progressSteps = [
-  "Original Source",
-  "Save Score",
-  "Convert to Sibelius",
-  "Sibeius Corrections",
-  "Carl's artistic additions",
-  "Proper Formatting",
-  "Convert to PDF"
-];
-
-progressSteps.forEach((step, i) => {
-  progressListBox.appendChild(new ProgressStep(step, i));
-});
-
-let checkedBoxes = new Proxy({totalChecks: progressSteps.length, checks: 0}, {
-  set(o, p, v) {
-    if (p === "totalChecks") {
-      console.warn("Attempt to overwrite total number of Progress Tasks");
-      return;
-    } else if (p === "checks") {
-      let percentage = v * 100 / o.totalChecks;
-      let percentage2 = v === 0 ? 0 : v === o.totalChecks ? 100 : percentage + 5;
-    //let percentage2 = percentage+5 - (percentage+5) % 100 || percentage+5;  
-    //  document.getElementsByClassName("title")[0].style.backgroundImage = `linear-gradient(to right, var(--dataprog-border-color-transparent) ${percentage}%, transparent ${percentage2}%)`;
-      return o[p] = v;
-    } else {
-      console.warn("Attempt to read unknown property:", p);
-    }
-  }
-})
 
 
 /*** METADATA FIELDS ***/
@@ -158,7 +95,7 @@ metadataFields.forEach(field => {
 
 
 
-/*** BUNCH O' CRAP ***/
+/*** Page navigation animation ***/
 
 const hexToRgb = (hexStr) => {
   return "rgb(" + +`0x${hexStr.slice(0,2)}` + ", " + +`0x${hexStr.slice(2,4)}` + ", " + +`0x${hexStr.slice(4,6)}` + ")";
@@ -178,7 +115,6 @@ let fh = +a.getPropertyValue("--page-menu-button-margin").slice(0,-2) + +a.getPr
       menuItems[i].parentElement.getElementsByClassName("selected")[0]?.classList.remove("selected");
       menuItems[i].classList.add("selected");
       document.getElementById("selectedStyle").style.top = (i * fh) - bw + "px";
-// console.log("top:", document.getElementById("selectedStyle").style.top);
     });
   }
   menuItems[1].click();
