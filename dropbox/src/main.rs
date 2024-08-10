@@ -16,6 +16,15 @@ struct NewAccessTokenMsg {
     expires_in: usize
 }
 
+#[derive(Deserialize)]
+struct FileMetadataMsg {
+    ".tag": String,
+    client_modified: String,
+    name: String,
+    path_display: String,
+    server_modified: String,
+    size: usize
+}
 
 // Carl's deets (this app can only access one folder)
 // App name: Cataloguing Interface
@@ -33,7 +42,7 @@ const REFRESH_TOKEN: &str = "lFYUMZ3Sl1MAAAAAAAAAAdk1wiJubO_oA9e-FJRWdFESkz7WUaJ
 pub static ACCESS_TOKEN: RwLock<String> = RwLock::new(String::new());  
 
 /*
-  STEPS
+  STEPS TO GET REFRESH_TOKEN
 1. Create app on Carl's dropbox dev console
 2. Retrieve:
 	(a) APP_KEY
@@ -46,7 +55,7 @@ pub static ACCESS_TOKEN: RwLock<String> = RwLock::new(String::new());
 5. Retrieve REFRESH_TOKEN
 */
 
-
+// ACCESS Token is short-lived, REFRESH Token is long-lasting
 // To get new access token (life=14400s)
 // curl https://api.dropbox.com/oauth2/token -d grant_type=refresh_token -d refresh_token=oDfT54975DfGh12345KlMnOpQrSt01a -u <App key>:<App secret>
 
@@ -88,7 +97,7 @@ fn get_new_access_token() -> Result<(), Error> {
 
 /**
  * Validates current access token
- * @return bool: true if the token is valid, false if it is invalid
+ * @return bool:  true if the token is valid, false if it is invalid
  * @return Error: Problem with connection
  */
 fn validate_access_token() -> Result<bool, Error> {
@@ -138,6 +147,41 @@ fn _revoke_token() {
     println!("Token revoked");
 }
 
+
+/**
+ * Checks if given file exists
+ * MAY NEED PATH INFO LATER (e.g. composer name)
+ * @param string:  Filename
+ * @return bool:   Whether the file exists or not
+ * @return Error:  -
+ */
+fn check_file_exists_dropbox(filename: String) -> Result<bool, Err> {
+    let json_request_file_metadata = ureq::json!({
+	"include_deleted": false,
+	"include_has_explicit_shared_members": false,
+	"include_media_info": false,
+	"path": filename
+    });
+
+    let resp: FileMetadataMsg = ureq::post("https://api.dropboxapi.com/2/files/get_metadata")
+	.set("Authorization", "Bearer".to_owned() + &*ACCESS_TOKEN.read().unwrap())
+	.set("Content-Type", "application/json")
+	.send_json(json_request_file_metadata)
+	.expect("Couldn't create JSON from template")
+
+    match resp {
+	Ok(json) => {
+	    let metadata: FileMetadataMsg = json
+		.into_json()
+		.expect("Couldn't serialise response into JSON");
+	    println!("File found at {}\nSize: {}", metadata.path_display, metadata.size);
+	    Ok(true)
+	},
+	Err(_) => {
+	    Err(Error::new(ErrorKind::Other, "Something went wrong trying to find that file"))
+	}
+    }
+}
 
 /*
 fn basic_request() {
