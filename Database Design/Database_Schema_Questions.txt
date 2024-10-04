@@ -1,0 +1,121 @@
+Also todo:
+  [X] Instrument will depend on VD2 unless VD2==9, then on UEDR+VD1...
+  [X] Implement out domain tables for:
+	- Instrument/VD2 (done)		  -- ability to add instrument for VD2==9 variations
+	- VocalRange/VD1 (done)
+	- Folder/Filetype (xml, sib, pdf) -- ability to add a filetype to WIP
+  [ ] The presence of some info in a SONG table can check off some of the "SONG Progress Steps"
+  [ ] Presence of a Link in a song precludes presence of files in a variation (just generate a warning)
+
+Progress Steps:
+    Song Steps
+	[ ] Fill out Metadata
+	[ ] Acquire Source
+	[ ] Convert to Sibelius
+	[ ] Clean up score
+    Variation Steps
+	[ ] Write Part (or transpose)
+	[ ] Format with Plugin
+	[ ] Polish to publishing standard
+	[ ] Convert to PDF
+
+Folder/Filetype:
+    RAW
+    WIP
+	.xml
+	.mxl
+	.musicxml
+	.cap
+	.sib
+    Done
+	PDF
+
+Addressed:
+    [ ] 1
+    [X] 2	Songs & their Works	Songs sans Works will belong to an anonymous Work
+    [X] 3	Same Librettist		Ignored
+    [X] 4	Same Language		Ignored
+    [ ] 5
+    [ ] 6
+    [ ] 7
+    [X] 8	Hold			For Song ONLY
+    [X] 9	Notes			For Song AND Variation
+    [ ] 10	Links			?
+    [X] 11	IRISH TRAD		IRISH TRAD is the composer (?)
+
+1. Will all variations of a song in the same vocal range be in the same key?
+	E.g. 000200-3X are all in B-flat?
+	or will transposing instruments give a different key
+	If transposing instruments DO give a different key, is it set by the second digit of the variation?
+	How will 000200-X9 be handled? Could these be in any key?
+
+ANS
+	The key will be different, the clarient in B-flat (33) will always be printed a tone higher than the original (30)
+	So, the key difference will be static HOWEVER I think it should wtill be written that the variation is in the key of (30)
+	For e.g. tenor and french horn, french horn (and its transposing key) will be recorded somewehre and be put under 'X9'
+
+2. Will every song belong to a work?
+	Doesn't matter - songs that don't have a work name or opus number will have a WorkUID with no name
+
+ANS
+	(G) Larger Work Title (optional)	(H) Individual Song title		(I) Opus number of larger work OR Individual Song		(J) (If (I) exists) Indivudial Song Number
+
+	If a song is NOT part of a largerWORK, its title is ONLY in (H)
+	If there is no (G), then the Song/work number is in (I)
+	'Cycle' = Larger Work
+
+
+3. Will every work have the same librettist for all its songs?
+	Rare exceptions. For fuck sake.
+	Don't bother. JK, do it.
+
+	2% of the time, there are MULTIPLE LIBRETTISTS
+	THERE WOULDN'T BE 10 MULTIPLE COMPOSERS
+	> the comments section can deal with this
+
+4. Will every work be entirely in 1 language?
+	Rosen Cavellier is a German Opera with a single Italian song in it
+	> Don't fuss it
+
+5. Can all filenames be formulaic?
+	N.B. the database will store files based on UEDR and Variation Number
+
+	Rafferty Extended File name (for customer download)
+	E.g. Puccini - Gianni Schicci - Oh Mia Bambino Caro - transpose - Horn
+	No numbers, except for Bach - he has BWV numbers at the start... and Mozart a little bit
+	E.g. Cantata BWVXXX - [Aria_name] - Transposed - Oboe
+	> Have an auto-generated File name
+	> Let Carl edit it
+
+6. How strict is the "variation-instrument" relation?
+	... there must be a place to add a custom instrument name
+	for X9
+
+7. Precisely which steps of progress pertain ONLY to the song, and which to the variation?
+	Are there any shared steps? --> put them under VariationProgress
+	Will the source XML file be used for all Variations? (SEE 10.)
+	Will there be an extra step of "writing the new accompaniment" for some variations?
+ANS
+	A Sibleius file contains all the parts at once
+	A song with 0X, 1X, and 2X transpositions will have 3 Sibelius files\
+	I.e. each variation will have 1 file
+
+	> WAIT 6 MONTHS --> When creating an extra part (e.g. flute), Carl may do it in a new Sibelius file (or consider now ??)
+	> largely, additional instrumental parts will come later
+
+8. Can you HOLD a variation? or only a song?
+ANS
+	just for song, leave Variation Hold for later
+
+9. Will you want a separate Notes section for songs and variations?
+ANS
+	Yes.
+
+10. Will a LINK pertain to the song or the variation?
+ANS
+	The song
+
+11. IRISH TRAD, who's the composer?
+ANS
+	E.g. The Kerry(?) Dance
+... how does that answer the question?

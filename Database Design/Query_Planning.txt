@@ -1,0 +1,8 @@
+Queries:
+    [ ] Get Song details in different orders
+	Workdeets (Composer, Librettist, Workname), Songdeets (Progress, SongName), VariationsDeets (What variations, Musical Key, Progress)
+    [ ] Get possible combos:
+		VD1 & VocalRange
+		VD2 & Instrument
+		Folder/FileExt (don't give an option)
+    [ ] Get all song+Variation Deets (+ other Variation quick info)
