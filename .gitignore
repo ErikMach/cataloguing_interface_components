@@ -10,3 +10,9 @@
 /frontent/res/
 
 /tauri-test/
+/db_lite/ 
+/db/Cargo.lock
+/db/*.db
+/db/*.db-shm
+/db/*.db-wal
+/db/target/ 

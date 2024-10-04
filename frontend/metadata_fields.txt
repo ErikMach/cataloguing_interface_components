@@ -17,6 +17,7 @@ General headings:
 	- Original Key (& Key, if transposed)
 	- Text Incipit(s)
 	- Additional Instruments
+	- Original Language
     + Progress
 	- Status
 	- Original URL source
