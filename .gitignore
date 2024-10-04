@@ -7,12 +7,14 @@
 
 /frontend/metadata_fields.txt
 /frontend/css/fonts/
-/frontent/res/
+/frontend/res/
 
 /tauri-test/
-/db_lite/ 
+
+/db_lite/
+
 /db/Cargo.lock
 /db/*.db
 /db/*.db-shm
 /db/*.db-wal
-/db/target/ 
+/db/target/
