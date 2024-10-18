@@ -1,9 +1,9 @@
-INSERT INTO Composer (LastName, FirstName, MiddleNames, Born, Died) VALUES
-    ("Beethoven", "Ludwig van", NULL, 1770, 1827),
+INSERT INTO Composer (LastName, FirstName, Born, Died) VALUES
+    ("Beethoven", "Ludwig van", 1770, 1827),
     ("Mozart", "Wolfgang", "Amadeus Gotleib", 1756, 1791);
 
-INSERT INTO Librettist (LastName, FirstName, MiddleNames, Born, Died) VALUES
-    ("Da Ponte", "Lorenzo", NULL, 1749, 1838);
+INSERT INTO Librettist (LastName, FirstName, Born, Died) VALUES
+    ("Da Ponte", "Lorenzo", 1749, 1838);
 
 INSERT INTO Language (Name) VALUES
     ("English"),

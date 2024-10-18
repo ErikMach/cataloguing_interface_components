@@ -67,7 +67,6 @@ CREATE TABLE IF NOT EXISTS Composer
     ID			INTEGER NOT NULL PRIMARY KEY,
     LastName		TEXT NOT NULL,
     FirstName		TEXT NOT NULL,
-    MiddleNames		TEXT,
     Born		INTEGER,	-- Year
     Died		INTEGER,	-- Year
 
@@ -81,7 +80,6 @@ CREATE TABLE IF NOT EXISTS Librettist
     ID			INTEGER NOT NULL PRIMARY KEY,
     LastName		TEXT NOT NULL,
     FirstName		TEXT NOT NULL,
-    MiddleNames		TEXT,
     Born		INTEGER,	-- Year
     Died		INTEGER,	-- Year
 
