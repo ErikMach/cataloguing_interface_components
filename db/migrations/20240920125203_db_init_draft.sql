@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS Variation
 
     CHECK (VariationDigit1 BETWEEN 0 AND 9),
     CHECK (VariationDigit2 BETWEEN 0 AND 9),
-    CHECK (VariationDigit2 == 9 OR InstrumentID == NULL) -- Only have a unique Instrument if VD2==9
+    CHECK (VariationDigit2 = 9 OR InstrumentID IS NULL) -- Only have a unique Instrument if VD2==9
 ) STRICT;
 
 /*
@@ -71,6 +71,7 @@ CREATE TABLE IF NOT EXISTS Composer
     Born		INTEGER,	-- Year
     Died		INTEGER,	-- Year
 
+    UNIQUE (LastName, FirstName, MiddleNames),
     CHECK (Born BETWEEN 1000 AND 2000),
     CHECK (Died BETWEEN 1000 AND 2000)
 ) STRICT;
@@ -84,6 +85,7 @@ CREATE TABLE IF NOT EXISTS Librettist
     Born		INTEGER,	-- Year
     Died		INTEGER,	-- Year
 
+    UNIQUE (LastName, FirstName, MiddleNames),
     CHECK (Born BETWEEN 1000 AND 2000),
     CHECK (Died BETWEEN 1000 AND 2000)
 ) STRICT;
@@ -91,55 +93,55 @@ CREATE TABLE IF NOT EXISTS Librettist
 CREATE TABLE IF NOT EXISTS Language
 (
     ID			INTEGER NOT NULL PRIMARY KEY,
-    Name		TEXT NOT NULL
+    Name		TEXT NOT NULL UNIQUE
 ) STRICT;
 
 CREATE TABLE IF NOT EXISTS Character
 (
     ID			INTEGER NOT NULL PRIMARY KEY,
-    Name		TEXT NOT NULL
+    Name		TEXT NOT NULL UNIQUE
 ) STRICT;
 
 CREATE TABLE IF NOT EXISTS ImportanceRank
 (
     ID			INTEGER NOT NULL PRIMARY KEY,
-    Name		TEXT NOT NULL
+    Name		TEXT NOT NULL UNIQUE
 ) STRICT;
 
 CREATE TABLE IF NOT EXISTS Keyword
 (
     ID			INTEGER NOT NULL PRIMARY KEY,
-    Name		TEXT NOT NULL
+    Name		TEXT NOT NULL UNIQUE
 ) STRICT;
 
 CREATE TABLE IF NOT EXISTS MusicalKey
 (
     ID			INTEGER NOT NULL PRIMARY KEY,
-    Name		TEXT NOT NULL
+    Name		TEXT NOT NULL UNIQUE
 ) STRICT;
 
 CREATE TABLE IF NOT EXISTS Folder
 (
     ID			INTEGER NOT NULL PRIMARY KEY,
-    Name		TEXT NOT NULL
+    Name		TEXT NOT NULL UNIQUE
 ) STRICT;
 
 CREATE TABLE IF NOT EXISTS FileExt
 (
     ID			INTEGER NOT NULL PRIMARY KEY,
-    Name		TEXT NOT NULL
+    Name		TEXT NOT NULL UNIQUE
 ) STRICT;
 
 CREATE TABLE IF NOT EXISTS SongProgressStep
 (
     ID			INTEGER NOT NULL PRIMARY KEY,
-    Name		TEXT NOT NULL
+    Name		TEXT NOT NULL UNIQUE
 ) STRICT;
 
 CREATE TABLE IF NOT EXISTS VariationProgressStep
 (
     ID			INTEGER NOT NULL PRIMARY KEY,
-    Name		TEXT NOT NULL
+    Name		TEXT NOT NULL UNIQUE
 ) STRICT;
 
 -- `Instrument` Table acts as a "VariationDigit2_Instrument" Domain table, for VD2 != 9
@@ -148,13 +150,13 @@ CREATE TABLE IF NOT EXISTS VariationProgressStep
 CREATE TABLE IF NOT EXISTS Instrument
 (
     ID			INTEGER NOT NULL PRIMARY KEY,
-    Name		TEXT NOT NULL
+    Name		TEXT NOT NULL UNIQUE
 ) STRICT;
 
 CREATE TABLE IF NOT EXISTS VocalRange
 (
     VariationDigit1	INTEGER NOT NULL,
-    VocalRange		TEXT NOT NULL,
+    VocalRange		TEXT NOT NULL  UNIQUE,
     PRIMARY KEY (VariationDigit1),
     CHECK (VariationDigit1 BETWEEN 0 AND 10)
 ) STRICT;
