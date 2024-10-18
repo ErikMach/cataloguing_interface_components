@@ -32,12 +32,27 @@ async fn main() {
     };
 
 //    query_get_all_works(&db).await;
+/*
     match query_get_musical_keys(&db).await {
 	Ok(list) => {
 	    for i in 0..list.len() {
 		println!("{}\t{}", list[i].id, list[i].name);
 	    }
 	},
+	Err(err) => eprintln!("Error: {err}")
+    };
+*/
+
+    match query_get_song_characters(&db).await {
+	Ok(s) => println!("{:?}", s),
+	Err(err) => eprintln!("Error: {err}")
+    };
+    match update_character_id_by_name(&db, 27, "Claudia").await {
+	Ok(s) => println!("{:?}", s),
+	Err(err) => eprintln!("Error: {err}")
+    };
+    match query_get_song_characters(&db).await {
+	Ok(s) => println!("{:?}", s),
 	Err(err) => eprintln!("Error: {err}")
     };
 

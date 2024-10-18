@@ -1,5 +1,5 @@
 use sqlx::{
-    Sqlite, SqlitePool, Error, FromRow, query, query_as, 
+    Sqlite, SqlitePool, Error, FromRow, query, query_as,
     migrate::{
 	MigrateDatabase,
 	Migrator
@@ -51,12 +51,6 @@ impl Work {
     }
 }
 
-/* Structs todo:
-	[X] composer
-	[X] librettist
-	[X] song
-	[ ] variation
-*/
 #[derive(Clone, FromRow, Debug)]
 #[sqlx(rename_all = "PascalCase")]
 struct Composer {
@@ -78,7 +72,7 @@ struct Librettist {
 #[derive(Clone, FromRow, Debug)]
 struct Song {
     uedr:		u32,
-    work:		Work,
+    work:		u32,
     original_key:	Option<String>,
     importance_rank:	String,
     name:		Option<String>,
@@ -104,12 +98,92 @@ pub struct MusicalKey {
     pub name: String
 }
 
+/*
+
+SELECT
+    s.Name AS song_name,
+    c.ID AS character_ID,
+    c.Name AS character_name
+FROM
+    Song s
+    JOIN Song_Character sc ON s.UEDR = sc.UEDR
+    JOIN Character c ON sc.CharacterID = c.ID;
+
+UPDATE Character
+SET
+    ID = 43
+WHERE
+    Name = "Claudia";
+*/
+
+#[derive(Clone, FromRow, Debug)]
+pub struct SongCharacter {
+    song_name: String,
+    character_id: u8,
+    character_name: String,
+}
+
+/*
+struct Update {
+    column: String,
+    value: String,
+    alias: Option<String>
+}
+
+fn create_update_query(table: &str, updates: Vec<Update>, wheres: Vec<Where>) -> Result<String, String> {
+    let mut query: String = "UPDATE ".to_string() + table + " SET ";
+    for i in 0..updates.len() {
+	let Update { column: col, value: val, alias: alias_op } = &updates[i];
+	query += &col;
+	query += " = ";
+	query += &val;
+	if let Some(alias) = alias_op {
+	    query += " AS ";
+	    query += &alias;
+	}
+	query += ",\s";
+    }
+    query.truncate(query.len() - 3); // get rid of trailing ",\s"
+    return Ok(query);
+}
+*/
+
+pub async fn update_character_id_by_name(db: &SqlitePool, id: u32, name: &str) -> Result<(u64, i64), Error> {
+    let result = query("
+	UPDATE Character
+	SET
+	    ID = $1
+	WHERE
+	    Name = $2
+	")
+	.bind(id)
+	.bind(name)
+	.execute(db)
+	.await?;
+    return Ok((result.rows_affected(), result.last_insert_rowid()));
+}
+pub async fn query_get_song_characters(db: &SqlitePool) -> Result<Vec<SongCharacter>, Error> {
+    let sc = query_as::<_, SongCharacter>("
+	SELECT
+	    s.Name AS song_name,
+	    c.ID AS character_id,
+	    c.Name AS character_name
+	FROM
+	    Song s
+	    JOIN Song_Character sc ON s.UEDR = sc.UEDR
+	    JOIN Character c ON sc.CharacterID = c.ID;
+    ")
+	.fetch_all(db)
+	.await?;
+    return Ok(sc);
+}
+
 pub async fn query_get_musical_keys(db: &SqlitePool) -> Result<Vec<MusicalKey>, Error> {
     let musical_keys = query_as::<_, MusicalKey>("
-    SELECT
-	ID AS id,
-	Name AS name
-	FROM MusicalKey
+    	SELECT
+	    ID AS id,
+	    Name AS name
+	FROM MusicalKey;
     ")
 	.fetch_all(db)
 	.await?;
