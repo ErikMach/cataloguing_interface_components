@@ -1,8 +1,30 @@
 Queries:
     [ ] Get Song details in different orders
 	Workdeets (Composer, Librettist, Workname), Songdeets (Progress, SongName), VariationsDeets (What variations, Musical Key, Progress)
-    [ ] Get possible combos:
+	KEYWORDS, LANGUAGE, CHARACTERS
+    [ ] Get domain restrictions (as suggestions):
 		VD1 & VocalRange
 		VD2 & Instrument
 		Folder/FileExt (don't give an option)
     [ ] Get all song+Variation Deets (+ other Variation quick info)
+
+Inserts:
+    [ ] New Song (and work and variation 00)
+    [ ] New Work
+    [ ] New Variation
+    [ ] New Composer
+    [ ] New Librettist
+    [ ] New Keyword
+    [ ] New Character
+    [ ] New Language
+    [ ] New Instrument
+
+struct Example {
+    field1: type1,
+}
+impl Example {
+    fn insert () {}
+    fn update () {}
+    fn delete () {}
+    fn select () {}
+}
